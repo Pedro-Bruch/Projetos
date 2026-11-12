@@ -1,0 +1,2 @@
+Aqui nesse projeto, contém um jogo simulador de click, usei como referências jogos como cookie cliker e outros simuladores.
+O jogo foi criado por mim e atualizo assim que eu posso, implementando funções novas.

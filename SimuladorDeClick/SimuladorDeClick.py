@@ -19,7 +19,6 @@ pontos_nec_ren = 30000
 pontos_nec_aura = 5000
 aura = 1.5
 
-
 def ponto_novo(ponto):
     i = 0
     while ponto >= 1000:
@@ -30,8 +29,8 @@ def ponto_novo(ponto):
 resum = ["","k","M","B","T"]
 
 caixa1 = {
-    "Pet comum": [1.2, 40],
-    "Pet comum": [1.85, 33],
+    "Pet comum": [1.55, 40],
+    "Pet comum2": [1.85, 33],
     "Pet raro": [2, 20],
     "Pet épico": [3, 5],
     "Pet lendário": [4, 3],
