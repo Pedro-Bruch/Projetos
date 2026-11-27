@@ -3,6 +3,34 @@ from datetime import datetime
 
 saldo = 0
 ARQUIVO = "historico.json"
+ARQUIVO2 = "usuarios.json"
+
+def cadastrar(usuario, senha):
+    try:
+        with open(ARQUIVO2, "r", encoding="utf-8") as f:
+            for linha in f:
+                user_salvo, _ = linha.strip().split(":")
+                if user_salvo == usuario:
+                    return False
+    except FileNotFoundError:
+        pass
+
+    
+    with open(ARQUIVO, "a", encoding="utf-8") as f:
+        f.write(f"{usuario}:{senha}:0\n")
+    return True
+
+
+def login(usuario, senha):
+    try:
+        with open(ARQUIVO, "r", encoding="utf-8") as f:
+            for linha in f:
+                user_salvo, senha_salva, saldo = linha.strip().split(":")
+                if user_salvo == usuario and senha_salva == senha:
+                    return float(saldo)
+    except FileNotFoundError:
+        return None
+    return None  
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
@@ -39,11 +67,34 @@ def historico(valor):
     with open(ARQUIVO, "w", encoding="utf-8") as f:
         json.dump(lista_historico, f, ensure_ascii=False, indent=2)
     
+
 while True:
+    logar = int(input("1 - Login\n2 - Cadastro\n"))
+    if logar == 1:
+        usuario = input("Digite o Usuário: ")
+        senha = input("Digite a Senha: ")
+        if login(usuario, senha):
+            print("Logado com sucesso!")
+        else:
+            print("Usuário ou senha incorretos.")
+        time.sleep(1)
+        clear()
+    
+    if logar == 2:
+        usuario = input("Digite o Usuário: ")
+        senha = input("Digite a Senha: ")
+        
+        if cadastrar(usuario, senha):
+            print("Cadastrado!")
+        else:
+            print("Usuário já existe.")
+        time.sleep(1)
+        clear()
+        
     print("=" * 50)
     print(f"R$ {saldo}")
     print("=" * 50)
-    esc = int(input("1 - Depositar\n2 - Sacar\n3 - Histórico\n"))
+    esc = int(input("1 - Depositar\n2 - Sacar\n3 - Histórico\n4 - Sair\n"))
     
     if esc == 1:
         qntd = float(input("Digite quanto deseja depositar(utilize apenas números com duas casas décimais. ex: 01.10): "))
@@ -76,5 +127,8 @@ while True:
         
         input("\nPressione Enter para voltar ao menu...")
         clear()
+    
+    if esc == 4:
+        break
 
         
