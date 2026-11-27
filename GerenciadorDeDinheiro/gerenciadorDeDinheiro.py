@@ -9,21 +9,21 @@ def cadastrar(usuario, senha):
     try:
         with open(ARQUIVO2, "r", encoding="utf-8") as f:
             for linha in f:
-                user_salvo, _ = linha.strip().split(":")
+                user_salvo, _, _ = linha.strip().split(":")
                 if user_salvo == usuario:
                     return False
     except FileNotFoundError:
         pass
 
     
-    with open(ARQUIVO, "a", encoding="utf-8") as f:
+    with open(ARQUIVO2, "a", encoding="utf-8") as f:
         f.write(f"{usuario}:{senha}:0\n")
     return True
 
 
 def login(usuario, senha):
     try:
-        with open(ARQUIVO, "r", encoding="utf-8") as f:
+        with open(ARQUIVO2, "r", encoding="utf-8") as f:
             for linha in f:
                 user_salvo, senha_salva, saldo = linha.strip().split(":")
                 if user_salvo == usuario and senha_salva == senha:
@@ -92,7 +92,7 @@ while True:
         clear()
         
     print("=" * 50)
-    print(f"R$ {saldo}")
+    print(f"Olá {usuario},\nR$ {saldo}")
     print("=" * 50)
     esc = int(input("1 - Depositar\n2 - Sacar\n3 - Histórico\n4 - Sair\n"))
     
